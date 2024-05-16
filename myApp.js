@@ -10,6 +10,12 @@ app.get("/", (req,res)=>{
     res.sendFile(filepath)
 })
 
+app.get("/json", (req,res)=>{
+    let json_data = {"message":"Hello json"};
+    res.json(json_data);
+})
+
+
 
 
 
