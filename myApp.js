@@ -14,6 +14,20 @@ app.use(function middleware(req,res,next){
     next();
 })
 
+//Getting route parameter from client 
+app.get("/:word", (req,res) => {
+    const  {word} = req.params;
+    res.json({key: word});
+})
+
+app.get("/now", (req,res,next)=>{
+    //add time of request
+    req.time = new Date().toString();
+    next();
+}, (req,res)=>{ //mounting the middleware
+    //sending/responding the time request witihin JSON body
+    res.send({time: req.time});
+})
 
 app.get("/", (req,res)=>{
     // res.send("Hello Express")
