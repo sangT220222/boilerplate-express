@@ -1,5 +1,6 @@
 let express = require('express');
 const req = require('express/lib/request');
+const body_parser = require('body-parser'); 
 let app = express();
 //line 5 is needed for usuage of env variables
 require('dotenv').config()
@@ -13,6 +14,10 @@ app.use(function middleware(req,res,next){
     console.log(string);
     next();
 })
+//The middleware to handle URL encoded data is below
+app.use(body_parser.urlencoded({extended: false}));
+//parse JSON data sent in the POST request
+app.use(body_parser.json());
 
 app.get("/now", (req,res,next)=>{
     //add time of request
@@ -28,6 +33,13 @@ app.get("/name", (req,res) =>{
     var name_2 = req.query.last;
 
     res.json({ name: `${name_1} ${name_2}`});
+})
+
+app.post("/name", (req,res) => {
+    var name_1 = req.body.first;
+    var name_2 = req.body.last;
+
+    res.json({name: `${name_1} ${name_2}`});
 })
 
 app.get("/", (req,res)=>{
