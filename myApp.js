@@ -14,12 +14,6 @@ app.use(function middleware(req,res,next){
     next();
 })
 
-//Getting route parameter from client 
-app.get("/:word", (req,res) => {
-    const  {word} = req.params;
-    res.json({key: word});
-})
-
 app.get("/now", (req,res,next)=>{
     //add time of request
     req.time = new Date().toString();
@@ -29,9 +23,22 @@ app.get("/now", (req,res,next)=>{
     res.send({time: req.time});
 })
 
+app.get("/name", (req,res) =>{
+    var name_1 = req.query.first;
+    var name_2 = req.query.last;
+
+    res.json({ name: `${name_1} ${name_2}`});
+})
+
 app.get("/", (req,res)=>{
     // res.send("Hello Express")
     res.sendFile(filepath)
+})
+
+// Getting route parameter from client 
+app.get("/:word", (req,res) => {
+    const  {word} = req.params;
+    res.json({key: word});
 })
 
 app.get("/json", (req,res)=>{
